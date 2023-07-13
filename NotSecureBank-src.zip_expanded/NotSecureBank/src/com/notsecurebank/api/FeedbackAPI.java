@@ -46,6 +46,7 @@ public class FeedbackAPI extends NotSecureBankAPI {
         String comments;
 
         try {
+        	// soluzione per gli esercizi numero: V5 e V7 di tipo XSS 
             name = (String) myJson.get("name");
             name = ESAPI.encoder().encodeForHTML(name);
             email = (String) myJson.get("email");
