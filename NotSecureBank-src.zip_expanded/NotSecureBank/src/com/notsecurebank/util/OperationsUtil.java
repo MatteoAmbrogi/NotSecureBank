@@ -17,7 +17,7 @@ public class OperationsUtil {
 
     private static final Logger LOG = LogManager.getLogger(OperationsUtil.class);
 
-    public static String doTransfer(HttpServletRequest request, long creditActId, String accountIdString, double amount) {
+    public static String doTransfer(HttpServletRequest request, long creditActId, String accountIdString, double amount, String csrfToken ) {
         LOG.debug("doTransfer(HttpServletRequest, " + creditActId + ", '" + accountIdString + "', " + amount + ")");
 
         long debitActId = 0;
@@ -26,6 +26,12 @@ public class OperationsUtil {
         String userName = user.getUsername();
 
         try {
+        	
+        	String sessionCsrfToken = request.getSession().getAttribute(ServletUtil.SESSION_ATTR_CSRF);
+        	if(!csrfToken.equals(sessionCsrfToken)) {
+        		throw new Exception();
+        	}
+        	
             Long accountId = -1L;
             Cookie[] cookies = request.getCookies();
 

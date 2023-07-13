@@ -29,6 +29,7 @@ public class TransferAPI extends NotSecureBankAPI {
         String fromAccount;
         double amount;
         String message;
+        String csrfToken;
 
         try {
             myJson = new JSONObject(bodyJSON);
@@ -36,7 +37,8 @@ public class TransferAPI extends NotSecureBankAPI {
             creditActId = Long.parseLong(myJson.get("toAccount").toString());
             fromAccount = myJson.get("fromAccount").toString();
             amount = Double.parseDouble(myJson.get("transferAmount").toString());
-            message = OperationsUtil.doTransfer(request, creditActId, fromAccount, amount);
+            csrfToken = myJson.getString("csrfToken").toString();
+            message = OperationsUtil.doTransfer(request, creditActId, fromAccount, amount, csrfToken);
         } catch (JSONException e) {
             LOG.error(e.toString());
             return Response.status(500).entity("{\"Error\": \"Request is not in JSON format\"}").build();

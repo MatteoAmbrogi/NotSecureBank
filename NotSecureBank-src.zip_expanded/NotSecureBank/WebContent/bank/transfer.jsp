@@ -69,6 +69,7 @@
 		    <td><strong> Amount to Transfer:</strong>
 		    </td>
 		    <td><input type="text" id="transferAmount" name="transferAmount"></td>
+		    <td><input type="hidden" name="csrfToken" value="<%=request.getSession().getAttribute("csrfToken") %>"></td>
 		  </tr>
 		  <tr>
 		    <td colspan="2" align="center"><input type="submit" name="transfer" value="Transfer Money" ID="transfer"></td>
